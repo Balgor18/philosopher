@@ -21,7 +21,7 @@ SRCS =	ft_atoi.c\
 		main.c\
 		parse.c
 
-OBJS = $(SRCS:%.c=OBJS/%.o)
+OBJS = $(SRCS:%.c=OBJS/%.d)
 
 DEBUG = $(shell env | grep DEBUG | tr '=' ' ' | awk '{print $$2}')
 
@@ -29,11 +29,11 @@ ifeq ($(DEBUG), 1)
 	FLAGS += -g3 -fsanitize=address
 endif
 
-OBJS/%.o : %.c
+OBJS/%.d : %.c
 	@echo "Hey"
 	@mkdir -p OBJS
 	@echo "$(PURPLE)Compiling: $< $(WHITE)"
-	$(CC) $(FLAGS) -o $@ -c $<  $(INCLUDES)
+	$(CC) $(FLAGS) -o $@ -c $< $(INCLUDES)
 	@echo "$(GREEN)[OK]$(WHITE)"
 
 all : $(NAME)
