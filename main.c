@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:40:19 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/08 17:15:03 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/08 20:23:16 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	main(int argc, char **argv)
 	param = (t_param){};
 	if (argc == 5 || argc == 6)
 	{
-		parse(argc, argv);
+		if (!parse(argc, argv, &param))
+			return (EXIT_FAILURE);
 		return (EXIT_SUCCESS);
 	}
 	return (EXIT_FAILURE);

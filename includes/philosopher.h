@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:44:15 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/08 17:11:08 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/08 20:15:07 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_param
 	int	time_die;
 	int	time_eat;
 	int	time_sleep;
+	int	many_time_eat;
 }				t_param;
 
 /*
@@ -38,7 +39,8 @@ typedef struct s_param
 **-------------Parse----------------
 **----------------------------------
 */
-int		parse(int argc, char **argv);
+int		parse(int argc, char **argv, t_param *param);
+
 /*
 **----------------------------------
 **------------Includes--------------

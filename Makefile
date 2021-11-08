@@ -30,7 +30,6 @@ ifeq ($(DEBUG), 1)
 endif
 
 OBJS/%.d : %.c
-	@echo "Hey"
 	@mkdir -p OBJS
 	@echo "$(PURPLE)Compiling: $< $(WHITE)"
 	$(CC) $(FLAGS) -o $@ -c $< $(INCLUDES)
