@@ -1,26 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/08 12:40:19 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/08 17:15:03 by fcatinau         ###   ########.fr       */
+/*   Created: 2021/01/09 15:32:53 by fcatinau          #+#    #+#             */
+/*   Updated: 2021/11/08 14:58:15 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-int	main(int argc, char **argv)
+int	ft_atoi(char *c)
 {
-	t_param	param;
+	int	i;
+	int	sign;
+	int	total;
 
-	param = (t_param){};
-	if (argc == 5 || argc == 6)
+	total = 0;
+	i = 0;
+	sign = 1;
+	while ((c[i] >= 9 && c[i] <= 13) || c[i] == ' ')
+		i++;
+	if (c[i] == '-' || c[i] == '+')
 	{
-		parse(argc, argv);
-		return (EXIT_SUCCESS);
+		if (c[i] == '-')
+			sign *= -1;
+		i++;
 	}
-	return (EXIT_FAILURE);
+	while (c[i] >= '0' && c[i] <= '9')
+	{
+		total = total * 10;
+		total = total + (c[i] - 48);
+		i++;
+	}
+	return (total * sign);
 }

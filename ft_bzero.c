@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/08 12:40:19 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/08 17:15:03 by fcatinau         ###   ########.fr       */
+/*   Created: 2021/01/09 15:33:26 by fcatinau          #+#    #+#             */
+/*   Updated: 2021/11/08 17:06:16 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-int	main(int argc, char **argv)
+void	ft_bzero(void *s, size_t n)
 {
-	t_param	param;
+	size_t	i;
 
-	param = (t_param){};
-	if (argc == 5 || argc == 6)
+	i = 0;
+	while (i < n)
 	{
-		parse(argc, argv);
-		return (EXIT_SUCCESS);
+		((char *)s)[i] = 0;
+		i++;
 	}
-	return (EXIT_FAILURE);
 }

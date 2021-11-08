@@ -1,2 +1,3 @@
-*.o
+OBJS/
 philo
+philosopher

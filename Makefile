@@ -16,7 +16,10 @@ INCLUDES = -Iincludes/.
 
 FLAGS = -Wall -Wextra -Werror -MMD
 
-SRCS = main.c
+SRCS =	ft_atoi.c\
+		ft_bzero.c\
+		main.c\
+		parse.c
 
 OBJS = $(SRCS:%.c=OBJS/%.o)
 
