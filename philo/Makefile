@@ -14,12 +14,14 @@ CC = clang
 
 INCLUDES = -Iincludes/.
 
-FLAGS = -Wall -Wextra -Werror -MMD
+FLAGS = -Wall -Wextra -Werror -MMD -MP
 
-SRCS =	ft_atoi.c\
+SRCS =	error.c\
+		ft_atoi.c\
 		ft_bzero.c\
 		main.c\
-		parse.c
+		parse.c\
+		start_philo.c
 
 OBJS = $(SRCS:%.c=OBJS/%.d)
 

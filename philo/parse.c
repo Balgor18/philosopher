@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 14:59:02 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/09 13:51:15 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/09 15:45:42 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,14 @@ int	parse(int argc, char **argv, t_param *param)
 	while (i < argc)
 	{
 		if (!verif_digit(argv[i]))
-			return (FAILURE);
-		if (0 < ft_atoi(argv[i]))
-			return (FAILURE);
+			return (error_msg("Argument not a digit\n"));
+		if (0 > ft_atoi(argv[i]))
+			return (error_msg("Argument negative\n"));
 		if (i == 1)
+		{
 			param->nb_philo = ft_atoi(argv[i]);
+			param->nb_fork = param->nb_philo;
+		}
 		else if (i == 2)
 			param->time_eat = ft_atoi(argv[i]);
 		else if (i == 3)
