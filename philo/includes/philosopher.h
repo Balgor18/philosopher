@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:44:15 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/11 19:35:41 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/11 19:45:43 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,11 @@ typedef struct s_param
 	int	many_time_eat;
 }				t_param;
 
-struct pthread_t
-{
-	int	fork_left;
-	int	fork_right;
-};
+// struct pthread_t
+// {
+// 	int	fork_left;
+// 	int	fork_right;
+// };
 
 /*
 **----------------------------------
