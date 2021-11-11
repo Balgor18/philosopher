@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_time.c                                         :+:      :+:    :+:   */
+/*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/11 10:29:34 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/11 17:20:29 by fcatinau         ###   ########.fr       */
+/*   Created: 2021/11/11 16:55:21 by fcatinau          #+#    #+#             */
+/*   Updated: 2021/11/11 17:25:09 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-uint64_t	get_time(void)
+void	ft_print(char *s, int nb, int time)
 {
-	static struct timeval	tv;
-
-	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * (uint64_t)1000) + (tv.tv_usec / 1000));
+	ft_putchar_fd(STDOUT, '[');
+	ft_putnbr_fd(STDOUT, time);
+	ft_putstr_fd(STDOUT, "] ");
+	ft_putstr_fd(STDOUT, nb);
+	ft_putstr_fd(STDOUT, s);
 }

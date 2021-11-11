@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_time.c                                         :+:      :+:    :+:   */
+/*   start_routine.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/11 10:29:34 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/11 17:20:29 by fcatinau         ###   ########.fr       */
+/*   Created: 2021/11/11 15:53:31 by fcatinau          #+#    #+#             */
+/*   Updated: 2021/11/11 16:04:58 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-uint64_t	get_time(void)
+int	start_routine(t_param *param)
 {
-	static struct timeval	tv;
-
-	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * (uint64_t)1000) + (tv.tv_usec / 1000));
+	(void)param;
+	return (FALSE);
 }

@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:44:15 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/11 16:15:54 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/11 19:35:41 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,26 +76,32 @@ typedef struct s_param
 	int	many_time_eat;
 }				t_param;
 
+struct pthread_t
+{
+	int	fork_left;
+	int	fork_right;
+};
+
 /*
 **----------------------------------
 **--------------Parse---------------
 **----------------------------------
 */
-int			parse(int argc, char **argv, t_param *param);
+int			verif_parse(int argc, char **argv, t_param *param);
 
 /*
 **----------------------------------
 **--------------Philo---------------
 **----------------------------------
 */
-int			start_philo();
+int			start_philo(t_param *param, pthread_t *philo);
 
 /*
 **----------------------------------
 **---------------Time---------------
 **----------------------------------
 */
-uint64_t	get_time();
+uint64_t	get_time(void);
 
 /*
 **----------------------------------
@@ -103,7 +109,7 @@ uint64_t	get_time();
 **----------------------------------
 */
 int			start_routine(t_param *param);
-int			routine();
+int			routine(void);
 
 /*
 **----------------------------------
@@ -115,10 +121,6 @@ int			routine();
 // Return False = 0
 int			error_msg(char *s);
 
-// Fct print how to use the binary file
-// return EXIT_FAILURE
-int			error_arg(void);
-
 /*
 **----------------------------------
 **------------Includes--------------
@@ -126,5 +128,7 @@ int			error_arg(void);
 */
 int			ft_atoi(char *c);
 void		ft_putstr_fd(int fd, char *s);
+void		ft_putchar_fd(int fd, char c);
+void		ft_putnbr_fd(int nb, int fd);
 
 #endif

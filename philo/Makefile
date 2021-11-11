@@ -18,12 +18,13 @@ FLAGS = -Wall -Wextra -Werror -MMD -MP
 
 SRCS =	error.c\
 		ft_atoi.c\
+		ft_put.c\
 		get_time.c\
 		main.c\
-		parse.c\
 		routine.c\
 		start_philo.c\
-		start_routine.c
+		start_routine.c\
+		verif_parse.c
 
 OBJS = $(SRCS:%.c=OBJS/%.d)
 

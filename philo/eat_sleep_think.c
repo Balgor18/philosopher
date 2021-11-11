@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_time.c                                         :+:      :+:    :+:   */
+/*   eat_sleep_think.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/11 10:29:34 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/11 17:20:29 by fcatinau         ###   ########.fr       */
+/*   Created: 2021/11/11 15:57:59 by fcatinau          #+#    #+#             */
+/*   Updated: 2021/11/11 16:00:26 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-uint64_t	get_time(void)
+void	ft_sleep(t_param *param)
 {
-	static struct timeval	tv;
+	usleep(param->time_sleep);
+}
 
-	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * (uint64_t)1000) + (tv.tv_usec / 1000));
+void	ft_eat(t_param *param)
+{
+	usleep(param->time_eat);
+}
+
+void	ft_think(t_param *param)
+{
+	usleep(param->time_eat);
 }

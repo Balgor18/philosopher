@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   verif_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 14:59:02 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/11 16:04:06 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/11 17:38:47 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static int	ft_isdigit(int c)
 
 static int	verif_digit(char *s)
 {
+	if (!*s)
+		return (FAILURE);
 	while (*s)
 	{
 		if (!ft_isdigit(*s))
@@ -30,7 +32,7 @@ static int	verif_digit(char *s)
 	return (SUCCESS);
 }
 
-int	parse(int argc, char **argv, t_param *param)
+int	verif_parse(int argc, char **argv, t_param *param)
 {
 	int	i;
 
@@ -52,8 +54,9 @@ int	parse(int argc, char **argv, t_param *param)
 			param->time_sleep = ft_atoi(argv[i]);
 		else if (i == 4)
 			param->many_time_eat = ft_atoi(argv[i]);
+		else if (i == 5)
+			param->many_time_eat = ft_atoi(argv[i]);
 		i++;
 	}
-	param->time_think = param->time_die - (param->time_eat + param->time_sleep);
 	return (TRUE);
 }
