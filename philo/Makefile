@@ -19,6 +19,7 @@ FLAGS = -Wall -Wextra -Werror -MMD -MP
 SRCS =	error.c\
 		ft_atoi.c\
 		ft_bzero.c\
+		get_time.c\
 		main.c\
 		parse.c\
 		start_philo.c
@@ -32,28 +33,30 @@ ifeq ($(DEBUG), 1)
 endif
 
 OBJS/%.d : %.c
-	@mkdir -p OBJS
-	@echo "$(PURPLE)Compiling: $< $(WHITE)"
+	$(info $(PURPLE)Compiling: $< $(WHITE))
 	$(CC) $(FLAGS) -o $@ -c $< $(INCLUDES)
-	@echo "$(GREEN)[OK]$(WHITE)"
+	$(info $(GREEN)[OK]$(WHITE))
 
 all : $(NAME)
 
-$(NAME) : $(OBJS)
-	@mkdir -p OBJS/
-	@echo "\n$(YELLOW)Compiling $(NAME)...$(WHITE)"
+dir_obj :
+	$(info $(CYAN)Create obj folder: +++$(WHITE))
+	mkdir -p OBJS
+
+$(NAME) : dir_obj $(OBJS)
+	$(info $(YELLOW)Compiling $(NAME)...$(WHITE))
 	$(CC) $(FLAGS) -o $(NAME) $(INCLUDES) $(OBJS)
-	@echo "$(GREEN)-->[OK]$(WHITE)"
+	$(info $(GREEN)-->[OK]$(WHITE))
 
 clean :
-	@echo "$(RED)Clean file...$(WHITE)"
+	$(info $(RED)$(RED)Clean file...$(WHITE))
 	rm -rf OBJS/
-	@echo "$(GREEN)-->[OK] $(WHITE)\n"
+	$(info $(GREEN)-->[OK] $(WHITE))
 
 fclean : clean
-	@echo "$(RED)Clean exec...$(WHITE)"
+	$(info $(RED)Clean exec...$(WHITE))
 	rm -rf $(NAME)
-	@echo "$(GREEN)-->[OK] $(WHITE)\n"
+	$(info $(GREEN)-->[OK] $(WHITE))
 
 re : fclean $(NAME)
 
