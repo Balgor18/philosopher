@@ -18,11 +18,12 @@ FLAGS = -Wall -Wextra -Werror -MMD -MP
 
 SRCS =	error.c\
 		ft_atoi.c\
-		ft_bzero.c\
 		get_time.c\
 		main.c\
 		parse.c\
-		start_philo.c
+		routine.c\
+		start_philo.c\
+		start_routine.c
 
 OBJS = $(SRCS:%.c=OBJS/%.d)
 
@@ -40,7 +41,7 @@ OBJS/%.d : %.c
 all : $(NAME)
 
 dir_obj :
-	$(info $(CYAN)Create obj folder: +++$(WHITE))
+	$(info $(CYAN)Create obj folder: $(WHITE))
 	mkdir -p OBJS
 
 $(NAME) : dir_obj $(OBJS)

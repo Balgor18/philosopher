@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 14:59:02 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/09 15:45:42 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/11 16:04:06 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,6 @@ int	parse(int argc, char **argv, t_param *param)
 			param->many_time_eat = ft_atoi(argv[i]);
 		i++;
 	}
+	param->time_think = param->time_die - (param->time_eat + param->time_sleep);
 	return (TRUE);
 }
