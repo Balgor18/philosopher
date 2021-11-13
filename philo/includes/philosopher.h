@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:44:15 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/11 19:49:05 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/13 10:57:09 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // avec l'arg en premier argument
 
 // Le thread s'arrete soit avec des return
-// Soit avec  pthread_exit
+// Soit avec pthread_exit(can't be used)
 // ----------------------------------------------------------------------------
 // pthread_detach() --> prends le thread pour le detache
 // Fais en sorte que toutes memoire use par ce thread sera rendue a la fin
@@ -81,7 +81,7 @@ typedef struct s_param
 // 	int	fork_left;
 // 	int	fork_right;
 // };
-// https://www.youtube.com/watch?v=d9s_d28yJq0
+// https://www.youtube.com/watch?v=IKG1P4rgm54&list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2&index=3
 
 /*
 **----------------------------------
@@ -110,7 +110,7 @@ uint64_t	get_time(void);
 **----------------------------------
 */
 int			start_routine(t_param *param);
-int			routine(void);
+void		*routine(void);
 
 /*
 **----------------------------------

@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:40:19 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/11 19:26:13 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/13 10:57:27 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	main(int argc, char **argv)
 		philo = malloc(sizeof(pthread_t) * param.nb_philo);
 		if (!philo)
 			return (EXIT_FAILURE);
-		if (!start_philo(&param, philo))
+		if (!philo(&param, philo))
 			return (EXIT_FAILURE);
 		return (EXIT_SUCCESS);
 	}
