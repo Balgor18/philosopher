@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:44:15 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/13 10:57:09 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/15 11:11:30 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,13 @@ typedef struct s_param
 	int	time_think;
 	int	many_time_eat;
 }				t_param;
+
+typedef pthread_mutex_t			t_fork;
+
+typedef struct s_philo
+{
+
+}				t_philo;
 
 // struct pthread_t
 // {
