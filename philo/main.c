@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:40:19 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/13 10:57:27 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/16 11:38:06 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,17 @@ static int	error_arg(int argc)
 int	main(int argc, char **argv)
 {
 	t_param		param;
-	pthread_t	*philo;
+	t_philo		*philo;
 
 	param = (t_param){0};
 	if (argc == 5 || argc == 6)
 	{
 		if (!verif_parse(argc, argv, &param))
 			return (EXIT_FAILURE);
-		philo = malloc(sizeof(pthread_t) * param.nb_philo);
+		philo = malloc(sizeof(t_philo) * param.nb_philo);
 		if (!philo)
 			return (EXIT_FAILURE);
-		if (!philo(&param, philo))
+		if (!philo_init(&param, philo))
 			return (EXIT_FAILURE);
 		return (EXIT_SUCCESS);
 	}

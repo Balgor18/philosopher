@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:44:15 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/15 11:11:30 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/16 11:58:04 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,13 @@ typedef pthread_mutex_t			t_fork;
 
 typedef struct s_philo
 {
-
+	int		nb;
+	t_fork	*fork_left;
+	t_fork	*fork_right;
+	t_param	*param;
+	int		already_eat;
 }				t_philo;
 
-// struct pthread_t
-// {
-// 	int	fork_left;
-// 	int	fork_right;
-// };
 // https://www.youtube.com/watch?v=IKG1P4rgm54&list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2&index=3
 
 /*
@@ -103,6 +102,8 @@ int			verif_parse(int argc, char **argv, t_param *param);
 **----------------------------------
 */
 int			start_philo(t_param *param, pthread_t *philo);
+int			create_philo(t_param *param, pthread_t *philo);
+int			philo_init(t_param *param, t_philo *philo);
 
 /*
 **----------------------------------
