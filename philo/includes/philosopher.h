@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:44:15 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/17 12:43:36 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/17 15:24:55 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int			philo_init(int *param, t_philo *philo);
 **----------------------------------
 */
 t_time		get_time(void);
-void		ft_msleep(unsigned long long duration_in_ms);
+void		ft_sleep(unsigned long long dur_ms);
 
 /*
 **----------------------------------
@@ -150,16 +150,14 @@ int			error_msg(char *s);
 **--------------Print---------------
 **----------------------------------
 */
-void	ft_print(char *s, int nb, t_time time);
- 
+void		ft_print(char *s, int nb, t_time time);
+
 /*
 **----------------------------------
 **------------Includes--------------
 **----------------------------------
 */
 int			ft_atoi(char *c);
-// void		ft_putstr_fd(int fd, char *s);
-// void		ft_putchar_fd(int fd, char c);
-// void		ft_putnbr_fd(int nb, int fd);
+void		ft_putstr_fd(int fd, char *s);
 
 #endif

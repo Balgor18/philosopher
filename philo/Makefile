@@ -22,6 +22,7 @@ SRCS =	error.c\
 		get_time.c\
 		main.c\
 		philo.c\
+		print.c\
 		routine.c\
 		verif_parse.c
 

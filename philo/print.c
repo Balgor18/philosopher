@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 16:55:21 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/17 11:42:17 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/17 14:52:33 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 void	ft_print(char *s, int nb, t_time time)
 {
-	printf("[%d] %d%s\n", time, nb, s);
+	printf("[%lld] %d%s\n", time, nb, s);
 }
