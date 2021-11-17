@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:44:15 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/17 15:24:55 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/17 23:20:52 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ typedef enum e_param
 
 typedef pthread_mutex_t			t_fork;
 
+typedef int						bool;
+
 typedef unsigned long long int	t_time;
 
 typedef enum e_status
@@ -91,14 +93,14 @@ typedef struct s_philo
 {
 	int					nb;
 	pthread_t			thread;
-	pthread_mutex_t		*out_mutex;
+	pthread_mutex_t		*mutex_alive;
+	bool				*alive;
+	t_status			status;
+	t_time				time_prev_eat;
 	t_fork				*fork_left;
 	t_fork				*fork_right;
 	int					*param;
-	t_status			status;
-	t_time				time_prev_eat;
 	int					already_eat;
-	int					alive;
 }				t_philo;
 
 // https://www.youtube.com/watch?v=IKG1P4rgm54&list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2&index=3
@@ -118,6 +120,7 @@ int			verif_parse(int argc, char **argv, int *param);
 int			start_philo(t_param *param, pthread_t *philo);
 int			create_philo(t_param *param, pthread_t *philo);
 int			philo_init(int *param, t_philo *philo);
+void		change_state(t_philo *philo, t_status new_state);
 
 /*
 **----------------------------------

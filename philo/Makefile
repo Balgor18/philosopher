@@ -14,7 +14,7 @@ CC = clang
 
 INCLUDES = -Iincludes/.
 
-# FLAGS = -Wall -Wextra -Werror -MMD -MP
+FLAGS = -Wall -Wextra -Werror -MMD -MP
 
 SRCS =	error.c\
 		ft_atoi.c\

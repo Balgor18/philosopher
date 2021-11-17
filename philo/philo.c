@@ -6,13 +6,13 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 16:09:24 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/17 18:02:34 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/17 21:42:55 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-static t_fork	*forks_init(int nb_philo)
+static t_fork	*init_forks(int nb_philo)
 {
 	t_fork	*forks;
 	int		i;
@@ -36,36 +36,34 @@ static t_fork	*forks_init(int nb_philo)
 	return (forks);
 }
 
-void	ft_bzero(void *s, size_t n)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < n)
-	{
-		((char *)s)[i] = 0;
-		i++;
-	}
-}
-
 int	philo_init(int *param, t_philo *philo)
 {
-	t_fork	*forks;
-	int		i;
+	t_fork		*forks;
+	int			i;
 
-	i = -1;
-	while (++i < param[NB_PHILO])
-		philo[i] = (t_philo) {0};
-	forks = forks_init(param[NB_PHILO]);
+	i = 0;
+	forks = init_forks(param[NB_PHILO]);
 	if (forks == NULL)
-	{
-		free(philo);
-		return (FALSE);
-	}
+		return (error_msg("Malloc fail\n"));
 	printf("Forks init\n");
-	//need to init every philo by mutex create
-	//and join it with the fct routine
-	// if (!create_philo(param, philo))
-	// 	return (FALSE);
+	philo = malloc(sizeof(t_philo) * param[NB_PHILO]);
+	if (!philo)
+	{
+		free(forks);
+		return (error_msg("Malloc fail\n"));
+	}
+	i = 0;
+	while (i < param[NB_PHILO])
+	{
+		philo[i].param = param;
+		// philo[i].forks = forks;
+		philo[i].nb = i + 1;
+		philo[i].time_prev_eat = 0;
+		philo[i].status = PHILO_STATE_THINKING;
+		philo[i].already_eat = 0;
+		// give_forks(&philosophers[i], forks);
+		++i;
+	}
+	printf("Philo init\n");
 	return (TRUE);
 }
