@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 16:09:24 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/17 11:26:34 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/17 18:02:34 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,15 @@ int	philo_init(int *param, t_philo *philo)
 	i = -1;
 	while (++i < param[NB_PHILO])
 		philo[i] = (t_philo) {0};
-	// philo = (t_philo){0};
 	forks = forks_init(param[NB_PHILO]);
 	if (forks == NULL)
+	{
+		free(philo);
 		return (FALSE);
+	}
 	printf("Forks init\n");
+	//need to init every philo by mutex create
+	//and join it with the fct routine
 	// if (!create_philo(param, philo))
 	// 	return (FALSE);
 	return (TRUE);

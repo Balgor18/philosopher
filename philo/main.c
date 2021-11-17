@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:40:19 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/17 14:47:21 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/17 17:37:09 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int argc, char **argv)
 	static int	param[PARAM_MAX];
 	t_philo		*philo;
 
-	if (argc < PARAM_MAX - 1 || argc > PARAM_MAX)
+	if (argc > PARAM_MAX && argc <= PARAM_MAX + 1)
 	{
 		if (!verif_parse(argc, argv, param))
 			return (EXIT_FAILURE);

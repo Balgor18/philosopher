@@ -6,18 +6,30 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 15:52:20 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/17 14:51:17 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/17 18:10:22 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
+//state = 3 = think
+//state = 2 = eat
+//state = 1 = sleep
+//state = 0 = dead
+static char	*string_per_state(int state)
+{
+	if (state == 3)
+		return ("is thinking");
+	else if (state == 2)
+		return ("is eating");
+	return ("is sleeping");
+}
+
 static void	change_state(t_philo *philo, t_status new_state)
 {
 	pthread_mutex_lock(philo->out_mutex);
 	philo->status = new_state;
-	output_status(get_state_string(philo->status), philo);
-	// ft_print(get_state_string(philo->status), philo);
+	ft_print(string_per_state(philo->status), philo->nb, get_time());
 	if (philo->status == PHILO_STATE_DEAD)
 		philo->alive = FALSE;
 	pthread_mutex_unlock(philo->out_mutex);
