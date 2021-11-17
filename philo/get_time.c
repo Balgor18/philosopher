@@ -6,18 +6,38 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 10:29:34 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/13 11:15:20 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/17 12:43:19 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-uint64_t	get_time(void)
+t_time	get_time(void)
 {
-	static struct timeval	tv;
+	static t_time	initial_ts = 0;
+	t_time			current_ts;		
+	struct timeval	tval;
 
+	gettimeofday(&tval, NULL);
+	current_ts = tval.tv_sec * 1000 + tval.tv_usec / 1000;
+	if (initial_ts == 0)
+		initial_ts = current_ts;
+	return (current_ts - initial_ts);
+}
 
-	if (gettimeofday(&tv, NULL) == -1)
-		return (-1);
-	return ((tv.tv_sec * (uint64_t)1000) + (tv.tv_usec / (uint64_t)1000));
+void	ft_msleep(unsigned long long duration_in_ms)
+{
+	t_time	start_ts;
+	t_time	current_ts;
+	t_time	end_ts;
+
+	start_ts = get_timestamp();
+	end_ts = start_ts + duration_in_ms;
+	while (1)
+	{
+		current_ts = get_timestamp();
+		if (current_ts >= end_ts)
+			break ;
+		usleep(100);
+	}
 }

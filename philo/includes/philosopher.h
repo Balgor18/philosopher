@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:44:15 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/16 11:58:04 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/17 12:43:36 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,26 +65,40 @@
 # define SUCCESS 1
 # define FAILURE 0
 
-typedef struct s_param
+typedef enum e_param
 {
-	int	nb_philo;
-	int	nb_fork;
-	int	time_die;
-	int	time_eat;
-	int	time_sleep;
-	int	time_think;
-	int	many_time_eat;
+	NB_PHILO = 0,
+	TIME_TO_DIE,
+	TIME_TO_SLEEP,
+	TIME_TO_EAT,
+	MAX_EAT_COUNT,
+	PARAM_MAX,
 }				t_param;
 
 typedef pthread_mutex_t			t_fork;
 
+typedef unsigned long long int	t_time;
+
+typedef enum e_status
+{
+	PHILO_STATE_DEAD = 0,
+	PHILO_STATE_SLEEPING,
+	PHILO_STATE_EATING,
+	PHILO_STATE_THINKING,
+}	t_status;
+
 typedef struct s_philo
 {
-	int		nb;
-	t_fork	*fork_left;
-	t_fork	*fork_right;
-	t_param	*param;
-	int		already_eat;
+	int					nb;
+	pthread_t			thread;
+	pthread_mutex_t		*out_mutex;
+	t_fork				*fork_left;
+	t_fork				*fork_right;
+	int					*param;
+	t_status			status;
+	t_time				time_prev_eat;
+	int					already_eat;
+	int					alive;
 }				t_philo;
 
 // https://www.youtube.com/watch?v=IKG1P4rgm54&list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2&index=3
@@ -94,7 +108,7 @@ typedef struct s_philo
 **--------------Parse---------------
 **----------------------------------
 */
-int			verif_parse(int argc, char **argv, t_param *param);
+int			verif_parse(int argc, char **argv, int *param);
 
 /*
 **----------------------------------
@@ -103,14 +117,15 @@ int			verif_parse(int argc, char **argv, t_param *param);
 */
 int			start_philo(t_param *param, pthread_t *philo);
 int			create_philo(t_param *param, pthread_t *philo);
-int			philo_init(t_param *param, t_philo *philo);
+int			philo_init(int *param, t_philo *philo);
 
 /*
 **----------------------------------
 **---------------Time---------------
 **----------------------------------
 */
-uint64_t	get_time(void);
+t_time		get_time(void);
+void		ft_msleep(unsigned long long duration_in_ms);
 
 /*
 **----------------------------------
@@ -118,7 +133,7 @@ uint64_t	get_time(void);
 **----------------------------------
 */
 int			start_routine(t_param *param);
-void		*routine(void);
+void		*routine(t_philo *philo);
 
 /*
 **----------------------------------
@@ -132,12 +147,19 @@ int			error_msg(char *s);
 
 /*
 **----------------------------------
+**--------------Print---------------
+**----------------------------------
+*/
+void	ft_print(char *s, int nb, t_time time);
+ 
+/*
+**----------------------------------
 **------------Includes--------------
 **----------------------------------
 */
 int			ft_atoi(char *c);
-void		ft_putstr_fd(int fd, char *s);
-void		ft_putchar_fd(int fd, char c);
-void		ft_putnbr_fd(int nb, int fd);
+// void		ft_putstr_fd(int fd, char *s);
+// void		ft_putchar_fd(int fd, char c);
+// void		ft_putnbr_fd(int nb, int fd);
 
 #endif

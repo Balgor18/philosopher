@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 16:09:24 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/16 11:55:14 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/17 11:26:34 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,16 @@ void	ft_bzero(void *s, size_t n)
 	}
 }
 
-int	philo_init(t_param *param, t_philo *philo)
+int	philo_init(int *param, t_philo *philo)
 {
 	t_fork	*forks;
 	int		i;
 
 	i = -1;
-	while (++i < param->nb_philo)
+	while (++i < param[NB_PHILO])
 		philo[i] = (t_philo) {0};
 	// philo = (t_philo){0};
-	forks = forks_init(param->nb_philo);
+	forks = forks_init(param[NB_PHILO]);
 	if (forks == NULL)
 		return (FALSE);
 	printf("Forks init\n");
