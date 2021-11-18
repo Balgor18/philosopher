@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 16:09:24 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/17 21:42:55 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/18 17:07:35 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static t_fork	*init_forks(int nb_philo)
 	return (forks);
 }
 
-int	philo_init(int *param, t_philo *philo)
+t_philo	*philo_init(int *param, t_philo *philo)
 {
 	t_fork		*forks;
 	int			i;
@@ -44,13 +44,18 @@ int	philo_init(int *param, t_philo *philo)
 	i = 0;
 	forks = init_forks(param[NB_PHILO]);
 	if (forks == NULL)
-		return (error_msg("Malloc fail\n"));
+	{
+		error_msg("Malloc fail\n");
+		return (NULL);
+	}
 	printf("Forks init\n");
+	printf("param[NB_PHILO] = %d\n", param[NB_PHILO]);
 	philo = malloc(sizeof(t_philo) * param[NB_PHILO]);
 	if (!philo)
 	{
 		free(forks);
-		return (error_msg("Malloc fail\n"));
+		error_msg("Malloc fail\n");
+		return (NULL);
 	}
 	i = 0;
 	while (i < param[NB_PHILO])
@@ -65,5 +70,5 @@ int	philo_init(int *param, t_philo *philo)
 		++i;
 	}
 	printf("Philo init\n");
-	return (TRUE);
+	return (philo);
 }

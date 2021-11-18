@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:44:15 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/17 23:20:52 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/18 17:06:19 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int			verif_parse(int argc, char **argv, int *param);
 */
 int			start_philo(t_param *param, pthread_t *philo);
 int			create_philo(t_param *param, pthread_t *philo);
-int			philo_init(int *param, t_philo *philo);
+t_philo		*philo_init(int *param, t_philo *philo);
 void		change_state(t_philo *philo, t_status new_state);
 
 /*
@@ -147,7 +147,7 @@ void		*routine(t_philo *philo);
 // Fct print Error\n and the message
 // Return False = 0
 int			error_msg(char *s);
-
+int			error_arg(int argc);
 /*
 **----------------------------------
 **--------------Print---------------

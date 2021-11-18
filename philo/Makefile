@@ -28,10 +28,10 @@ SRCS =	error.c\
 
 OBJS = $(SRCS:%.c=OBJS/%.d)
 
-DEBUG = $(shell env | grep DEBUG | tr '=' ' ' | awk '{print $$2}')
+DEBUG = $(shell env | grep DEBUG= | tr '=' ' ' | awk '{print $$2}')
 
 ifeq ($(DEBUG), 1)
-	FLAGS += -g3 -fsanitize=address
+	FLAGS += -g3 -fsanitize=thread
 endif
 
 OBJS/%.d : %.c
@@ -47,7 +47,7 @@ dir_obj :
 
 $(NAME) : dir_obj $(OBJS)
 	$(info $(YELLOW)Compiling $(NAME)...$(WHITE))
-	$(CC) $(FLAGS) -o $(NAME) $(INCLUDES) $(OBJS)
+	$(CC) $(FLAGS) -o $(NAME) $(INCLUDES) $(OBJS) -lpthread
 	$(info $(GREEN)-->[OK]$(WHITE))
 
 clean :
