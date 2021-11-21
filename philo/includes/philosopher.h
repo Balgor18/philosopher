@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:44:15 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/18 17:06:19 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/21 16:21:57 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ typedef enum e_param
 	PARAM_MAX,
 }				t_param;
 
-typedef pthread_mutex_t			t_fork;
+typedef pthread_mutex_t			t_fork;// fork is create but never used
 
 typedef int						bool;
 

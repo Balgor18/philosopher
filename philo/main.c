@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:40:19 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/18 18:36:32 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/21 16:41:53 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	launch_pair_philo(t_philo *philo)
 	{
 		pthread_create_ret = pthread_create(&philo[i].thread, NULL,
 				(void *)(void *)&routine, &philo[i]);
-		printf("pthread_create_ret = %d\n", pthread_create_ret);
+		// printf("pthread_create_ret = %d\n", pthread_create_ret);
 		if (pthread_create_ret != 0)
 		{
 			error_msg("thread create\n");
@@ -86,9 +86,9 @@ static void	launch(t_philo *philo)
 
 	if (!launch_imp_philo(philo))
 		return ;
-	printf("Je seg ou\n");
+	// printf("Je seg ou\n");
 	usleep(1000);
-	printf("Je seg ou 2\n");
+	// printf("Je seg ou 2\n");
 	if (launch_pair_philo(philo) != 0)
 		return ;
 	if (pthread_create(&check_philo_dead, NULL,
@@ -105,36 +105,36 @@ static int	prelaunch(t_philo *philo)
 	pthread_mutex_t	*mutex_alive;
 
 	mutex_alive = malloc(sizeof(pthread_mutex_t) * 1);
-	printf("Je malloc \n");
+	// printf("Je malloc \n");
 	if (mutex_alive == NULL)
 	{
 		free(philo);
 		return (error_msg("Malloc fail\n"));
 	}
-	printf("Init mutex\n");
+	// printf("Init mutex\n");
 	if (pthread_mutex_init(mutex_alive, 0) != 0)
 		return (error_msg("Mutex init fail\n"));
 	alive = malloc(sizeof(bool) * 1);
-	printf("Je malloc alive \n");
+	// printf("Je malloc alive \n");
 	if (alive == NULL)
 	{
 		free(philo);
 		free(mutex_alive);
 		return (error_msg("Malloc fail\n"));
 	}
-	printf("Je change la valeur de alive\n");
+	// printf("Je change la valeur de alive\n");
 	*alive = TRUE;
 	i = 0;
-	printf("Je boucle\n");
-	printf("==============\ni = %d\nnb_philo %d\n", i, philo[0].param[NB_PHILO]);
+	// printf("Je boucle\n");
+	// printf("==============\ni = %d\nnb_philo %d\n", i, philo[0].param[NB_PHILO]);
 	while (i < philo[0].param[NB_PHILO])
 	{
-		printf("--------------\ni = %d\n", i);
+		// printf("--------------\ni = %d\n", i);
 		philo[i].alive = alive;
 		philo[i].mutex_alive = mutex_alive;
 		++i;
 	}
-	printf("Je ressort\n");
+	// printf("Je ressort\n");
 	return (TRUE);
 }
 
@@ -144,17 +144,17 @@ int	main(int argc, char **argv)
 	static int	param[PARAM_MAX];
 
 	philo = NULL;
-	if (argc >= PARAM_MAX && argc <= PARAM_MAX + 1)// 5 ou 6
+	if (argc >= PARAM_MAX && argc <= PARAM_MAX + 1)
 	{
 		if (!verif_parse(argc, argv, param))
 			return (EXIT_FAILURE);
 		philo = philo_init(param, philo);
 		if (philo == NULL)
 			return (EXIT_FAILURE);
-		printf("prelaunch\n");
+		// printf("prelaunch\n");
 		if (!prelaunch(philo))
 			return (EXIT_FAILURE);
-		printf("Launch\n");
+		// printf("Launch\n");
 		launch(philo);
 		return (EXIT_SUCCESS);
 	}

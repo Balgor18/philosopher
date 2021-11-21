@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 15:52:20 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/17 23:18:22 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/21 16:42:23 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	change_state(t_philo *philo, t_status new_state)
 
 static void	routine_eat(t_philo *philo)
 {
-	pthread_mutex_lock(philo->fork_left);
+	pthread_mutex_lock(philo->fork_left);// !!! can't lock a fork --> need to find a other way
 	pthread_mutex_lock(philo->fork_right);
 	pthread_mutex_lock(philo->mutex_alive);
 	ft_print(" has taken a fork\n", philo->nb, get_time());
@@ -66,7 +66,7 @@ void	*routine(t_philo *philo)
 {
 	while (philo->status)
 	{
-		routine_eat(philo);
+		routine_eat(philo); // !!! error i don't givefork to philo so i segfault inside this fct
 		routine_sleep(philo);
 		routine_think(philo);
 		usleep(100);// check something

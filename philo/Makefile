@@ -27,7 +27,7 @@ SRCS =	error.c\
 		verif_parse.c
 
 OBJS = $(SRCS:%.c=OBJS/%.d)
-
+# -lpthread
 DEBUG = $(shell env | grep DEBUG= | tr '=' ' ' | awk '{print $$2}')
 
 ifeq ($(DEBUG), 1)
@@ -35,28 +35,28 @@ ifeq ($(DEBUG), 1)
 endif
 
 OBJS/%.d : %.c
-	$(info $(PURPLE)Compiling: $< $(WHITE))
+	$(info $(PURPLE)Compiling : $< $(WHITE))
 	$(CC) $(FLAGS) -o $@ -c $< $(INCLUDES)
 	$(info $(GREEN)[OK]$(WHITE))
 
 all : $(NAME)
 
 dir_obj :
-	$(info $(CYAN)Create obj folder: $(WHITE))
+	$(info $(CYAN)Create obj folder : $(WHITE))
 	mkdir -p OBJS
 
 $(NAME) : dir_obj $(OBJS)
 	$(info $(YELLOW)Compiling $(NAME)...$(WHITE))
-	$(CC) $(FLAGS) -o $(NAME) $(INCLUDES) $(OBJS) -lpthread
+	$(CC) $(FLAGS) -o $(NAME) $(INCLUDES) $(OBJS)
 	$(info $(GREEN)-->[OK]$(WHITE))
 
 clean :
-	$(info $(RED)$(RED)Clean file...$(WHITE))
+	$(info $(RED)$(RED)Clean file ...$(WHITE))
 	rm -rf OBJS/
 	$(info $(GREEN)-->[OK] $(WHITE))
 
 fclean : clean
-	$(info $(RED)Clean exec...$(WHITE))
+	$(info $(RED)Clean exec ...$(WHITE))
 	rm -rf $(NAME)
 	$(info $(GREEN)-->[OK] $(WHITE))
 

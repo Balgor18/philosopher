@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 14:59:02 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/17 11:13:12 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/21 16:33:31 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,12 @@ int	verif_parse(int argc, char **argv, int *param)
 		if (i == 1)
 			param[NB_PHILO] = ft_atoi(argv[i]);
 		else if (i == 2)
-			param[TIME_TO_EAT] = ft_atoi(argv[i]);
+			param[TIME_TO_DIE] = ft_atoi(argv[i]);
 		else if (i == 3)
-			param[TIME_TO_SLEEP] = ft_atoi(argv[i]);
+			param[TIME_TO_EAT] = ft_atoi(argv[i]);
 		else if (i == 4)
+			param[TIME_TO_SLEEP] = ft_atoi(argv[i]);
+		else if (i == 5)
 			param[MAX_EAT_COUNT] = ft_atoi(argv[i]);
 		i++;
 	}
