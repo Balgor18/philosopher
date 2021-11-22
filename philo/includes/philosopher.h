@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:44:15 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/21 16:21:57 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/22 21:18:40 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,9 @@ typedef struct s_philo
 	t_fork				*fork_right;
 	int					*param;
 	int					already_eat;
+	// t_fork				*forks;
+	// int					*fork_use;
+	// int					use[2];
 }				t_philo;
 
 // https://www.youtube.com/watch?v=IKG1P4rgm54&list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2&index=3

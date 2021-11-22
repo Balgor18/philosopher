@@ -27,28 +27,32 @@ SRCS =	error.c\
 		verif_parse.c
 
 OBJS = $(SRCS:%.c=OBJS/%.d)
-# -lpthread
+
+ADD = -lpthread
+
 DEBUG = $(shell env | grep DEBUG= | tr '=' ' ' | awk '{print $$2}')
 
 ifeq ($(DEBUG), 1)
 	FLAGS += -g3 -fsanitize=thread
 endif
 
+OS = $(shell uname)
+
+all : $(NAME)
+
+$(NAME) : dir_obj $(OBJS)
+	$(info $(YELLOW)Compiling $(NAME)...$(WHITE))
+	$(CC) $(FLAGS) -o $(NAME) $(INCLUDES) $(OBJS) $(ADD)
+	$(info $(GREEN)-->[OK]$(WHITE))
+
 OBJS/%.d : %.c
 	$(info $(PURPLE)Compiling : $< $(WHITE))
 	$(CC) $(FLAGS) -o $@ -c $< $(INCLUDES)
 	$(info $(GREEN)[OK]$(WHITE))
 
-all : $(NAME)
-
 dir_obj :
 	$(info $(CYAN)Create obj folder : $(WHITE))
 	mkdir -p OBJS
-
-$(NAME) : dir_obj $(OBJS)
-	$(info $(YELLOW)Compiling $(NAME)...$(WHITE))
-	$(CC) $(FLAGS) -o $(NAME) $(INCLUDES) $(OBJS)
-	$(info $(GREEN)-->[OK]$(WHITE))
 
 clean :
 	$(info $(RED)$(RED)Clean file ...$(WHITE))
@@ -58,7 +62,7 @@ clean :
 fclean : clean
 	$(info $(RED)Clean exec ...$(WHITE))
 	rm -rf $(NAME)
-	$(info $(GREEN)-->[OK] $(WHITE))
+	$(info $(GREEN)-->[OK]$(WHITE))
 
 re : fclean $(NAME)
 
