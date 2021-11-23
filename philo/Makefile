@@ -26,7 +26,7 @@ SRCS =	error.c\
 		routine.c\
 		verif_parse.c
 
-OBJS = $(SRCS:%.c=OBJS/%.d)
+DEPS = $(SRCS:%.c=DEPS/%.d)
 
 ADD = -lpthread
 
@@ -39,24 +39,22 @@ endif
 OS = $(shell uname)
 
 all : $(NAME)
-
-$(NAME) : dir_obj $(OBJS)
+# dir_obj
+$(NAME) :  $(DEPS)
 	$(info $(YELLOW)Compiling $(NAME)...$(WHITE))
-	$(CC) $(FLAGS) -o $(NAME) $(INCLUDES) $(OBJS) $(ADD)
+	$(CC) $(FLAGS) -o $(NAME) $(INCLUDES) $(DEPS) $(ADD)
 	$(info $(GREEN)-->[OK]$(WHITE))
 
-OBJS/%.d : %.c
+DEPS/%.d : %.c
+	$(info $(CYAN)Create obj folder : $(WHITE))
+	mkdir -p DEPS
 	$(info $(PURPLE)Compiling : $< $(WHITE))
 	$(CC) $(FLAGS) -o $@ -c $< $(INCLUDES)
 	$(info $(GREEN)[OK]$(WHITE))
 
-dir_obj :
-	$(info $(CYAN)Create obj folder : $(WHITE))
-	mkdir -p OBJS
-
 clean :
-	$(info $(RED)$(RED)Clean file ...$(WHITE))
-	rm -rf OBJS/
+	$(info $(RED)Clean file ...$(WHITE))
+	rm -rf DEPS/
 	$(info $(GREEN)-->[OK] $(WHITE))
 
 fclean : clean
@@ -66,4 +64,4 @@ fclean : clean
 
 re : fclean $(NAME)
 
-.phony : $(NAME)
+.phony : re fclean clean

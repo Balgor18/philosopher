@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:44:15 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/22 21:18:40 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/23 23:39:52 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@
 # include <string.h>
 # include <stdlib.h>
 # include <sys/time.h>
+# include <limits.h>
 # include "color.h"
 
 # define EXIT_SUCCESS 0
@@ -83,10 +84,10 @@ typedef unsigned long long int	t_time;
 
 typedef enum e_status
 {
-	PHILO_STATE_DEAD = 0,
-	PHILO_STATE_SLEEPING,
-	PHILO_STATE_EATING,
-	PHILO_STATE_THINKING,
+	DEAD_STATE = 0,
+	SLEEPING_STATE,
+	EATING_STATE,
+	THINKING_STATE,
 }	t_status;
 
 typedef struct s_philo
@@ -101,7 +102,8 @@ typedef struct s_philo
 	t_fork				*fork_right;
 	int					*param;
 	int					already_eat;
-	// t_fork				*forks;
+	t_fork				*forks;
+	t_time				tmp;
 	// int					*fork_use;
 	// int					use[2];
 }				t_philo;

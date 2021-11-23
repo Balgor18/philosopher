@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 16:09:24 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/23 15:26:56 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/23 22:52:47 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ t_philo	*philo_init(int *param, t_philo *philo)
 	philo = malloc(sizeof(t_philo) * param[NB_PHILO]);
 	if (!philo)
 	{
-
 		error_msg("Malloc fail\n");
 		return (NULL);
 	}
@@ -79,15 +78,13 @@ t_philo	*philo_init(int *param, t_philo *philo)
 	{
 		// philo[i] = (t_philo) {0};// !!! check if need
 		philo[i].param = param;
+		philo[i].forks = forks;
 		philo[i].nb = i + 1;
 		philo[i].time_prev_eat = 0;
-		philo[i].status = PHILO_STATE_THINKING;
+		philo[i].status = THINKING_STATE;
 		philo[i].already_eat = 0;
-		// philo[i].fork_use = fork_use;
-		// give_forks(&philosophers[i], forks);
 		donate_forks(&philo[i], forks);
 		++i;
 	}
-	// printf("Philo init\n");
 	return (philo);
 }
