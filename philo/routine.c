@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 15:52:20 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/23 15:27:38 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/23 15:57:48 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ void	change_state(t_philo *philo, t_status new_state)
 
 static void	routine_eat(t_philo *philo)
 {
-	// looking for fork ?
-	pthread_mutex_lock(philo->fork_left);// !!! can't lock a fork --> need to find a other way
+	pthread_mutex_lock(philo->fork_left);
 	pthread_mutex_lock(philo->fork_right);
 	pthread_mutex_lock(philo->mutex_alive);
 	ft_print(" has taken a fork", philo->nb, get_time());
@@ -48,6 +47,8 @@ static void	routine_eat(t_philo *philo)
 	philo->time_prev_eat = get_time();
 	philo->already_eat++;
 	ft_sleep(philo->param[TIME_TO_EAT]);
+	pthread_mutex_unlock(philo->fork_left);
+	pthread_mutex_unlock(philo->fork_right);
 }
 
 static void	routine_sleep(t_philo *philo)
@@ -63,12 +64,12 @@ static void	routine_think(t_philo *philo)
 
 void	*routine(t_philo *philo)
 {
-	while (philo->status)
+	while (philo->status > 0)
 	{
 		routine_think(philo);
-		routine_eat(philo); // !!! error i don't givefork to philo so i segfault inside this fct
+		routine_eat(philo);
 		routine_sleep(philo);
-		usleep(100);// check something
+		usleep(100);
 	}
 	return NULL;
 }
