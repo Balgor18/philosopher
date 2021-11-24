@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 15:52:20 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/23 23:47:03 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/24 17:07:36 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static void	routine_eat(t_philo *philo)
 	change_state(philo, EATING_STATE);
 	philo->time_prev_eat = get_time();
 	philo->already_eat++;
+	// printf("nb_print %d\n", ++nb_print);
 	ft_sleep(philo->param[TIME_TO_EAT]);
 	pthread_mutex_unlock(philo->fork_left);
 	pthread_mutex_unlock(philo->fork_right);
@@ -86,6 +87,6 @@ void	*routine(t_philo *philo)
 		// printf("---------\nJe boucle %d\nphilo %d\nalive = %d\n---------\n", i, philo->nb, *philo->alive);
 		i++;
 	}
-	printf("============\nje ressort %d\n============\n", philo->nb);
+	printf("============\nje ressorts %d\n============\n", philo->nb);
 	return (philo);
 }

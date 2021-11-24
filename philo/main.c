@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:40:19 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/23 22:57:19 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/24 22:32:50 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,27 +55,26 @@ int	launch_pair_philo(t_philo *philo)
 void	*thread_check_alive(t_philo *philo)
 {
 	int		i;
-	int		full;
-	t_philo	*philo_bis;
+	// t_philo	*philo_bis;
 
-	full = 0;
 	i = 0;
-	while (philo[0].alive)
+	while (philo->alive)
 	{
-		philo_bis = &philo[i];
-		if (get_time() >= philo_bis->time_prev_eat + philo_bis->param[TIME_TO_DIE])
-			change_state(philo_bis, DEAD_STATE);
-		if (philo_bis->already_eat >= philo_bis->param[MAX_EAT_COUNT]
-			&& ++full == philo_bis->param[NB_PHILO])
-			philo_bis->alive = FALSE;
-		else if (++i == philo_bis->param[NB_PHILO])
+		pthread_mutex_lock(philo[i].mutex_alive);
+		// philo_bis = &philo[i];
+		if (get_time() >= philo[i].time_prev_eat + philo[i].param[TIME_TO_DIE])
+			change_state(philo, DEAD_STATE);
+		if (philo[i].already_eat >= philo[i].param[MAX_EAT_COUNT])
+			philo[i].alive = FALSE;
+		else if (i == philo[i].param[NB_PHILO])
 		{
-			full = 0;
 			i = 0;
-			usleep(1000);
+			usleep(100);
 		}
+		pthread_mutex_unlock(philo[i].mutex_alive);
+		i++;
 	}
-	philo[0].alive = FALSE;
+	philo->alive = FALSE;
 	return (philo);
 }
 
@@ -87,7 +86,7 @@ static void	launch(t_philo *philo)
 	if (!launch_imp_philo(philo))
 		return ;
 	usleep(1000);
-	if (launch_pair_philo(philo) != 0)
+	if (!launch_pair_philo(philo))
 		return ;
 	if (pthread_create(&check_philo_dead, NULL,
 			(void *)(void *)&thread_check_alive, philo) != 0)
@@ -129,7 +128,7 @@ static int	prelaunch(t_philo *philo)
 	}
 	return (TRUE);
 }
-
+int nb_print = 0;
 int	main(int argc, char **argv)
 {
 	t_philo		*philo;

@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:44:15 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/23 23:39:52 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/24 22:32:35 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@
 # define SUCCESS 1
 # define FAILURE 0
 
+extern int nb_print;
+
 typedef enum e_param
 {
 	NB_PHILO = 0,
@@ -94,6 +96,7 @@ typedef struct s_philo
 {
 	int					nb;
 	pthread_t			thread;
+	// pthread_mutex_t		thread;
 	pthread_mutex_t		*mutex_alive;
 	bool				*alive;
 	t_status			status;
@@ -103,9 +106,6 @@ typedef struct s_philo
 	int					*param;
 	int					already_eat;
 	t_fork				*forks;
-	t_time				tmp;
-	// int					*fork_use;
-	// int					use[2];
 }				t_philo;
 
 // https://www.youtube.com/watch?v=IKG1P4rgm54&list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2&index=3
