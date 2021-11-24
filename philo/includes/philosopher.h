@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:44:15 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/24 22:32:35 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/24 23:28:01 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ typedef enum e_param
 
 typedef pthread_mutex_t			t_fork;// fork is create but never used
 
-typedef int						bool;
+// typedef int						bool;
 
 typedef unsigned long long int	t_time;
 
@@ -96,9 +96,8 @@ typedef struct s_philo
 {
 	int					nb;
 	pthread_t			thread;
-	// pthread_mutex_t		thread;
 	pthread_mutex_t		*mutex_alive;
-	bool				*alive;
+	int					*alive;
 	t_status			status;
 	t_time				time_prev_eat;
 	t_fork				*fork_left;
