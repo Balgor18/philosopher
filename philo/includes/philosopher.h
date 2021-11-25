@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:44:15 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/24 23:28:01 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/25 12:47:53 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ int			error_arg(int argc);
 **--------------Print---------------
 **----------------------------------
 */
-void		ft_print(char *s, int nb, t_time time);
+void	ft_print(char *s, int nb, t_time time, int print);
 
 /*
 **----------------------------------

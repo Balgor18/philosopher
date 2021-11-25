@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:40:19 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/24 23:50:25 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/25 14:26:25 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,30 +82,54 @@ static void	launch(t_philo *philo)
 {
 	// pthread_t			check_philo_dead;
 	int i;
+	int	nb_philo;
+	int	nb_eat;
+	int j;
 
+	j = 0;
 	i = 0;
-	ft_print(NULL, 0, 0);
+	nb_philo = philo[0].param[NB_PHILO];
+	nb_eat =  philo[0].param[MAX_EAT_COUNT];;
+	// ft_print(NULL, 0, 0);
 	if (!launch_imp_philo(philo))
 		return ;
-	usleep(1000);
+	// usleep(1000);
 	if (!launch_pair_philo(philo))
 		return ;
-	printf("Philo launch \n");
-	printf("alive = %d\n", *philo[0].alive);
-	while (i < philo[0].param[NB_PHILO])
+	// printf("Philo launch \n");
+	// printf("alive = %d\n", *philo[0].alive);
+	while (i < nb_philo)
 	{
+		pthread_mutex_lock(philo->mutex_alive);
 		if (*philo[i].alive == 0)
+		{
+			pthread_mutex_unlock(philo->mutex_alive);
 			break;
-		if (++i == philo[0].param[NB_PHILO])
+		}
+		// if (*philo[i].alive == 2) // check this because not work
+		// {
+		// 	while (philo[j].already_eat == nb_eat && j < nb_philo)
+		// 	{
+		// 		j++;
+		// 	}
+		// 	if (j == nb_philo)
+		// 	{
+		// 		pthread_mutex_unlock(philo->mutex_alive);
+		// 		break;
+		// 	}
+		// }
+		pthread_mutex_unlock(philo->mutex_alive);
+		if (++i == nb_philo)
 			i = 0;
+
 	}
 	i = -1;
-	printf("Je recup tout le monde \n");
-	while (++i < philo[0].param[NB_PHILO])
-	{
+	// printf("Je recup tout le monde \n");
+	while (++i < nb_philo)
+	// {
 		pthread_join(philo[i].thread, NULL);
-	}
-	printf("Jai recup tout le monde \n");
+	// }
+	// printf("Jai recup tout le monde \n");
 }
 
 static int	prelaunch(t_philo *philo)
