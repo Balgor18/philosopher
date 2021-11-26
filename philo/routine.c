@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 15:52:20 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/25 14:56:27 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/26 13:08:52 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,16 @@ static int	check_alive(t_philo *philo)
 
 void	*routine(t_philo *philo)
 {
-	while (*philo->alive == 1)
+	static int	alive = 0;
+	pthread_mutex_lock(philo->mutex_alive);
+	alive = *philo->alive;
+	pthread_mutex_unlock(philo->mutex_alive);
+	while (alive == 1)
 	{
-		if (!routine_eat(philo))
-			break ;
+		// pthread_mutex_unlock(philo->mutex_alive);
+		routine_eat(philo);
+		// if (!routine_eat(philo))
+			// break ;
 		if (!check_alive(philo))
 			return (philo);
 		routine_sleep(philo);
@@ -101,6 +107,11 @@ void	*routine(t_philo *philo)
 		routine_think(philo);
 		if (!check_alive(philo))
 			return (philo);
+		usleep(100);
+		pthread_mutex_lock(philo->mutex_alive);
+		alive = *philo->alive;
+		pthread_mutex_unlock(philo->mutex_alive);
 	}
+	// pthread_mutex_unlock(philo->mutex_alive);
 	return (philo);
 }

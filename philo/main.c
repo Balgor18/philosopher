@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:40:19 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/25 14:26:25 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/26 13:06:51 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ int	launch_pair_philo(t_philo *philo)
 
 static void	launch(t_philo *philo)
 {
-	// pthread_t			check_philo_dead;
 	int i;
 	int	nb_philo;
 	int	nb_eat;
@@ -89,15 +88,17 @@ static void	launch(t_philo *philo)
 	j = 0;
 	i = 0;
 	nb_philo = philo[0].param[NB_PHILO];
-	nb_eat =  philo[0].param[MAX_EAT_COUNT];;
-	// ft_print(NULL, 0, 0);
+	nb_eat =  philo[0].param[MAX_EAT_COUNT];
+	pthread_mutex_lock(philo->mutex_alive);
 	if (!launch_imp_philo(philo))
 		return ;
-	// usleep(1000);
 	if (!launch_pair_philo(philo))
 		return ;
+	pthread_mutex_unlock(philo->mutex_alive);
 	// printf("Philo launch \n");
 	// printf("alive = %d\n", *philo[0].alive);
+	exit (12);
+	while (1);
 	while (i < nb_philo)
 	{
 		pthread_mutex_lock(philo->mutex_alive);
@@ -106,22 +107,20 @@ static void	launch(t_philo *philo)
 			pthread_mutex_unlock(philo->mutex_alive);
 			break;
 		}
-		// if (*philo[i].alive == 2) // check this because not work
-		// {
-		// 	while (philo[j].already_eat == nb_eat && j < nb_philo)
-		// 	{
-		// 		j++;
-		// 	}
-		// 	if (j == nb_philo)
-		// 	{
-		// 		pthread_mutex_unlock(philo->mutex_alive);
-		// 		break;
-		// 	}
-		// }
-		pthread_mutex_unlock(philo->mutex_alive);
+		while(philo[j].already_eat == nb_eat && j < nb_philo)
+		{
+			j++;
+		}
+		if (j == nb_philo)
+		{
+			pthread_mutex_unlock(philo->mutex_alive);
+			break;
+		}
+		j = 0;
 		if (++i == nb_philo)
 			i = 0;
-
+		pthread_mutex_unlock(philo->mutex_alive);
+		usleep(200);
 	}
 	i = -1;
 	// printf("Je recup tout le monde \n");
