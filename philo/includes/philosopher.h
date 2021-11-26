@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:44:15 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/25 12:47:53 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/26 18:40:15 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,19 +94,21 @@ typedef enum e_status
 
 typedef struct s_philo
 {
-	int					nb;
-	pthread_t			thread;
-	pthread_mutex_t		*mutex_alive;
-	int					*alive;
-	t_status			status;
-	t_time				time_prev_eat;
-	t_fork				*fork_left;
-	t_fork				*fork_right;
+	int					nb;// need
 	int					*param;
-	int					already_eat;
-	t_fork				*forks;
+	pthread_t			thread;// thread du philo
+	pthread_mutex_t		*mutex_alive;// if dead
+	pthread_mutex_t		*all_eat;// just create
+	int					*alive;// value for dead
+	t_status			status;// for the status
+	t_time				last_eat;// last time_t philo eat
+	t_fork				*fork_left;//fork
+	t_fork				*fork_right;// fork
+	int					nb_eat;
+	// t_fork				*forks;
 }				t_philo;
 
+// https://github.com/Alexdelia/42-Philosophers.git
 // https://www.youtube.com/watch?v=IKG1P4rgm54&list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2&index=3
 
 /*
