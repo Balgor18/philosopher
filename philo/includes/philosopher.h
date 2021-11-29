@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:44:15 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/29 19:07:13 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/29 23:53:04 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@
 # define SUCCESS 1
 # define FAILURE 0
 
-extern int nb_print;
-
 typedef enum e_param
 {
 	NB_PHILO = 0,
@@ -91,28 +89,22 @@ typedef struct s_philo
 	int					fork_left;
 	int					fork_right;
 	pthread_t			thread;// thread du philo
-	// pthread_mutex_t		*mutex_alive;// if dead
-	// pthread_mutex_t		*all_eat;// just create
-	// int					*alive;// value for dead
+	pthread_t			watcher;
 	t_time				last_eat;// last time_t philo eat
 	pthread_mutex_t		lock_eat;
-	// t_fork				*fork_left;//fork
-	// t_fork				*fork_right;// fork
 	t_check				*check;
-
-	// t_fork				*forks;
 }				t_philo;
 
 struct s_check
 {
 	long			*param;
-	int				g_nb_meal;
+	int				philo_done_eat;
 	int				everyone_alive;
 	t_philo			*philos;
-	pthread_mutex_t	update_nb_meal;
+	pthread_mutex_t	check_nb_meal;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	prompt;
-	pthread_mutex_t	check_end;
+	pthread_mutex_t	is_print;
+	pthread_mutex_t	check_finish;
 };
 
 // https://github.com/Sheschire/Philosophers.git
@@ -121,36 +113,46 @@ struct s_check
 
 /*
 **----------------------------------
-**--------------Parse---------------
+**--------------Verif---------------
 **----------------------------------
 */
-int			verif_parse(int argc, char **argv, int *param);
+int			verif_arg(int argc, char **argv);
 
 /*
 **----------------------------------
 **--------------Philo---------------
 **----------------------------------
 */
-int			start_philo(t_param *param, pthread_t *philo);
-int			create_philo(t_param *param, pthread_t *philo);
-t_philo		*philo_init(int *param, t_philo *philo);
-void		change_state(t_philo *philo, t_status new_state);
-
+void		init_philo(t_check *check, long *param);
+void		init_check(t_check *d, long *param, char **argv);
 /*
 **----------------------------------
 **---------------Time---------------
 **----------------------------------
 */
 t_time		get_time(void);
-void		ft_sleep(unsigned long long dur_ms);
+void		ft_usleep(unsigned int ms_time);
 
 /*
 **----------------------------------
 **-------------Routine--------------
 **----------------------------------
 */
-int			start_routine(t_param *param);
-void		*routine(t_philo *philo);
+void		start(t_check *check);
+void		*routine(void *thread_philo);
+void		*watcher(void *thread_philo);
+void		eat_sleep_think(t_check *c, t_philo *philo);
+void		print(t_check *c, int nb, char *s);
+void		modif_eat(t_check *c, t_philo *philo);
+
+/*
+**----------------------------------
+**---------------End----------------
+**----------------------------------
+*/
+void		end_simulation(t_check *c);
+int			check_end_monitor(t_check *c, t_philo *philo);
+int			check_end_philo(t_check *c);
 
 /*
 **----------------------------------
@@ -160,22 +162,17 @@ void		*routine(t_philo *philo);
 
 // Fct print Error\n and the message
 // Return False = 0
-int			error_msg(char *s);
-int			error_arg(int argc);
-/*
-**----------------------------------
-**--------------Print---------------
-**----------------------------------
-*/
-void	ft_print(char *s, int nb, t_time time, int print);
+void		error_msg(char *s);
 
 /*
 **----------------------------------
 **------------Includes--------------
 **----------------------------------
 */
-int			ft_atoi(char *c);
+int			ft_atoi(char *str);
 void		ft_putstr_fd(int fd, char *s);
 size_t		ft_strlen(char *s);
+int			ft_isdigit(int c);
+int			ft_strcmp(const char *s1, const char *s2);
 
 #endif

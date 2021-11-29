@@ -17,14 +17,21 @@ INCLUDES = -Iincludes/.
 FLAGS = -Wall -Wextra -Werror -MMD -MP
 
 SRCS =	error.c\
-		ft_atoi.c\
-		ft_put.c\
-		get_time.c\
+		init.c\
 		main.c\
-		philo.c\
-		print.c\
-		routine.c\
-		verif_parse.c
+		simulation.c\
+		utils.c\
+		verif.c
+
+# SRCS =	error.c\
+# 		ft_atoi.c\
+# 		ft_put.c\
+# 		get_time.c\
+# 		main.c\
+# 		philo.c\
+# 		print.c\
+# 		routine.c\
+# 		verif_parse.c
 
 DEPS = $(SRCS:%.c=DEPS/%.d)
 

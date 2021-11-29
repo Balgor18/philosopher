@@ -6,13 +6,13 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 15:12:07 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/29 15:18:11 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/29 23:40:22 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-int	check_arg(int argc, char **argv)
+int	verif_arg(int argc, char **argv)
 {
 	int	i;
 	int	j;

@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 15:26:47 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/29 16:05:50 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/29 23:48:25 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ void	init_check(t_check *d, long *param, char **argv)
 	param[NB_PHILO] = ft_atoi(argv[1]);
 	if (param[NB_PHILO] > 200 || param[NB_PHILO] == 0)
 	{
-		err_msg("numb Philosophers\n");
+		error_msg("numb Philosophers\n");
 		return ;
 	}
 	param[TIME_TO_DIE] = ft_atoi(argv[2]);
 	if (param[TIME_TO_DIE] == 0)
 	{
-		err_msg("Time of death\n");
+		error_msg("Time of death\n");
 		return ;
 	}
 	param[TIME_TO_EAT] = ft_atoi(argv[3]);
@@ -37,7 +37,7 @@ void	init_check(t_check *d, long *param, char **argv)
 	d->philos = (t_philo *)malloc(sizeof(t_philo) * param[NB_PHILO]);
 	if (!d->philos)
 	{
-		_err("Malloc");
+		error_msg("Malloc");
 		return ;
 	}
 	d->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * param[NB_PHILO]);
@@ -45,7 +45,7 @@ void	init_check(t_check *d, long *param, char **argv)
 	{
 		if (d->philos)
 			free(d->philos);
-		_err("Malloc");
+		error_msg("Malloc");
 		return ;
 	}
 }
