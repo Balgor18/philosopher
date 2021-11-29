@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:44:15 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/29 11:06:14 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/29 19:07:13 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,33 +80,40 @@ typedef enum e_param
 
 typedef pthread_mutex_t			t_fork;
 
-// typedef int						bool;
-
 typedef unsigned long long int	t_time;
 
-typedef enum e_status
-{
-	DEAD_STATE = 0,
-	SLEEPING_STATE,
-	EATING_STATE,
-	THINKING_STATE,
-}	t_status;
+typedef struct s_check			t_check;
 
 typedef struct s_philo
 {
 	int					nb;// need
-	long				*param;
-	pthread_t			thread;// thread du philo
-	pthread_mutex_t		*mutex_alive;// if dead
-	pthread_mutex_t		*all_eat;// just create
-	int					*alive;// value for dead
-	t_status			status;// for the status
-	t_time				last_eat;// last time_t philo eat
-	t_fork				*fork_left;//fork
-	t_fork				*fork_right;// fork
 	int					nb_eat;
+	int					fork_left;
+	int					fork_right;
+	pthread_t			thread;// thread du philo
+	// pthread_mutex_t		*mutex_alive;// if dead
+	// pthread_mutex_t		*all_eat;// just create
+	// int					*alive;// value for dead
+	t_time				last_eat;// last time_t philo eat
+	pthread_mutex_t		lock_eat;
+	// t_fork				*fork_left;//fork
+	// t_fork				*fork_right;// fork
+	t_check				*check;
+
 	// t_fork				*forks;
 }				t_philo;
+
+struct s_check
+{
+	long			*param;
+	int				g_nb_meal;
+	int				everyone_alive;
+	t_philo			*philos;
+	pthread_mutex_t	update_nb_meal;
+	pthread_mutex_t	*forks;
+	pthread_mutex_t	prompt;
+	pthread_mutex_t	check_end;
+};
 
 // https://github.com/Sheschire/Philosophers.git
 // https://github.com/Alexdelia/42-Philosophers.git
@@ -169,5 +176,6 @@ void	ft_print(char *s, int nb, t_time time, int print);
 */
 int			ft_atoi(char *c);
 void		ft_putstr_fd(int fd, char *s);
+size_t		ft_strlen(char *s);
 
 #endif
