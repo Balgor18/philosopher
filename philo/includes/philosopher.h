@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:44:15 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/26 18:40:15 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/29 11:06:14 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ typedef enum e_param
 	PARAM_MAX,
 }				t_param;
 
-typedef pthread_mutex_t			t_fork;// fork is create but never used
+typedef pthread_mutex_t			t_fork;
 
 // typedef int						bool;
 
@@ -95,7 +95,7 @@ typedef enum e_status
 typedef struct s_philo
 {
 	int					nb;// need
-	int					*param;
+	long				*param;
 	pthread_t			thread;// thread du philo
 	pthread_mutex_t		*mutex_alive;// if dead
 	pthread_mutex_t		*all_eat;// just create
@@ -108,6 +108,7 @@ typedef struct s_philo
 	// t_fork				*forks;
 }				t_philo;
 
+// https://github.com/Sheschire/Philosophers.git
 // https://github.com/Alexdelia/42-Philosophers.git
 // https://www.youtube.com/watch?v=IKG1P4rgm54&list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2&index=3
 

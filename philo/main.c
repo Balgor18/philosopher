@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 15:45:08 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/26 15:45:33 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/29 10:35:56 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	main(int argc, char **argv)
 {
-	t_p				*p;
+	t_philo			*p;
 	t_p				a;
 	pthread_mutex_t	*mutex;
 	int				i;
