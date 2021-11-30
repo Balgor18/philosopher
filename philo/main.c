@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 15:45:08 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/29 23:57:08 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/30 16:59:55 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int	main(int ac, char **av)
 	static long		param[PARAM_MAX];
 	int	i;
 
-	if (!verif_arg(ac, av))// check
+	check = (t_check) {0};
+	if (!verif_arg(ac, av))
 		error_msg("Arguments not valids\n");
 	init_check(&check, param, av);
 	init_philo(&check, param);

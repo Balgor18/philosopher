@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 18:17:49 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/29 23:53:00 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/30 18:58:35 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,24 @@
 
 t_time	get_time(void)
 {
-	static t_time	initial = 0;
-	t_time			actual;
-	struct timeval	tval;
+	struct timeval	s_time;
+	t_time	time;
 
-	gettimeofday(&tval, NULL);
-	actual = tval.tv_sec * 1000 + tval.tv_usec / 1000;
-	if (initial == 0)
-		initial = actual;
-	return (actual - initial);
+	time = gettimeofday(&s_time, NULL);
+	time = s_time.tv_sec * 1000 \
+	+ s_time.tv_usec / 1000;
+	return (time);
 }
+
+// t_time	time_since_beginning(t_philo *philo)
+// {
+// 	return (get_time() - philo->start_time);
+// }
 
 void	ft_usleep(unsigned int ms_time)
 {
 	unsigned int	start;
 
-	start = 0;
 	start = get_time();
 	while ((get_time() - start) < ms_time)
 		usleep(ms_time / 10);
@@ -40,7 +42,7 @@ void	modif_eat(t_check *c, t_philo *philo)
 	pthread_mutex_lock(&c->check_nb_meal);
 	philo->nb_eat++;
 	if (philo->nb_eat == c->param[MAX_EAT_COUNT])
-		c->philo_done_eat++;
+		c->nb_philo_done_eat++;
 	pthread_mutex_unlock(&c->check_nb_meal);
 }
 
@@ -49,7 +51,7 @@ int	check_end_philo(t_check *c)
 	pthread_mutex_lock(&c->check_finish);
 	pthread_mutex_lock(&c->check_nb_meal);
 	if (!c->everyone_alive || \
-	(c->philo_done_eat == c->param[NB_PHILO] 
+	(c->nb_philo_done_eat == c->param[NB_PHILO]
 			&& c->param[MAX_EAT_COUNT] != -1))
 	{
 		pthread_mutex_unlock(&c->check_nb_meal);
@@ -63,12 +65,12 @@ int	check_end_philo(t_check *c)
 
 int	check_end_monitor(t_check *c, t_philo *philo)
 {
-	time_t	last_meal;
+	time_t				last_eat;
 
 	pthread_mutex_lock(&philo->lock_eat);
-	last_meal = philo->last_eat;
+	last_eat = philo->last_eat;
 	pthread_mutex_unlock(&philo->lock_eat);
-	if (get_time() - last_meal > (unsigned long long)c->param[TIME_TO_DIE])
+	if (get_time() - last_eat > (unsigned long long)c->param[TIME_TO_DIE])
 	{
 		print(c, philo->nb, "died");
 		pthread_mutex_lock(&c->check_finish);
@@ -77,7 +79,7 @@ int	check_end_monitor(t_check *c, t_philo *philo)
 		return (0);
 	}
 	pthread_mutex_lock(&c->check_nb_meal);
-	if (c->philo_done_eat == c->param[NB_PHILO])
+	if (c->nb_philo_done_eat == c->param[NB_PHILO])
 	{
 		pthread_mutex_unlock(&c->check_nb_meal);
 		return (0);
@@ -109,11 +111,10 @@ void	print(t_check *c, int nb, char *s)
 {
 	pthread_mutex_lock(&c->check_finish);
 	pthread_mutex_lock(&c->check_nb_meal);
-	if (c->everyone_alive && c->philo_done_eat != c->param[NB_PHILO])
+	if (c->everyone_alive && c->nb_philo_done_eat != c->param[NB_PHILO])
 	{
 		pthread_mutex_lock(&c->is_print);
-		// timestamp = get_time() - d->t_start;
-		printf("%llu %d %s\n", get_time(), nb + 1, s);
+		printf("%llu %d %s\n", get_time() - c->time_start, nb + 1, s);
 		pthread_mutex_unlock(&c->is_print);
 	}
 	pthread_mutex_unlock(&c->check_nb_meal);
@@ -143,11 +144,9 @@ void	*watcher(void *thread_philo)
 {
 	t_philo			*philo;
 	t_check			*c;
-	// unsigned int	last_meal;
 
 	philo = (t_philo *)thread_philo;
 	c = philo->check;
-	// last_meal = 0;
 	while (1)
 		if (!check_end_monitor(c, philo))
 			return (NULL);
@@ -165,7 +164,7 @@ void	*routine(void *thread_philo)
 		error_msg("Watcher\n");
 	if (check->param[NB_PHILO] == 1)
 	{
-		printf("%llu 1 has taken a fork\n", get_time());
+		printf("%llu 1 has taken a fork\n", get_time() - check->time_start);
 		return (NULL);
 	}
 	while (1)

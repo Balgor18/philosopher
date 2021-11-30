@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 15:26:47 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/29 23:48:25 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/30 17:38:55 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	init_check(t_check *d, long *param, char **argv)
 	d->everyone_alive = 1;
 	if (argv[5])
 		param[MAX_EAT_COUNT] = ft_atoi(argv[5]);
-	// d->t_start = get_time();
+	d->time_start = get_time();
 	d->philos = (t_philo *)malloc(sizeof(t_philo) * param[NB_PHILO]);
 	if (!d->philos)
 	{

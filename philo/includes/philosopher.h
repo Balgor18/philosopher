@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:44:15 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/29 23:53:04 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/30 17:42:20 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,11 @@ typedef struct s_philo
 struct s_check
 {
 	long			*param;
-	int				philo_done_eat;
+	int				nb_philo_done_eat;
 	int				everyone_alive;
+	time_t				time_start;
 	t_philo			*philos;
+	pthread_mutex_t	get_time;
 	pthread_mutex_t	check_nb_meal;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	is_print;
@@ -132,7 +134,6 @@ void		init_check(t_check *d, long *param, char **argv);
 */
 t_time		get_time(void);
 void		ft_usleep(unsigned int ms_time);
-
 /*
 **----------------------------------
 **-------------Routine--------------
