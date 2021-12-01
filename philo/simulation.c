@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/29 18:17:49 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/12/01 17:15:10 by fcatinau         ###   ########.fr       */
+/*   Created: 2021/11/20 18:17:49 by fcatinau          #+#    #+#             */
+/*   Updated: 2021/12/01 23:40:06 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	print(t_check *c, int nb, char *s)
 	pthread_mutex_unlock(&c->check_finish);
 }
 
-void	eat_sleep_think(t_check *c, t_philo *philo)
+void	do_task(t_check *c, t_philo *philo)
 {
 	pthread_mutex_lock(&c->forks[philo->fork_right]);
 	print(c, philo->nb, "has taken a fork");
@@ -74,9 +74,9 @@ void	*routine(void *thread_philo)
 	}
 	while (1)
 	{
-		if (!check_end_philo(check))
+		if (!is_philo_end(check))
 			return (NULL);
-		eat_sleep_think(check, philo);
+		do_task(check, philo);
 	}
 	return (NULL);
 }

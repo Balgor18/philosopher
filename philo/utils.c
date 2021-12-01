@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/29 15:04:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/29 15:17:43 by fcatinau         ###   ########.fr       */
+/*   Created: 2021/11/20 15:04:25 by fcatinau          #+#    #+#             */
+/*   Updated: 2021/12/01 23:39:47 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 size_t	ft_strlen(char *s)
 {
-	char *t;
+	char	*t;
 
 	t = s;
 	while (*s)

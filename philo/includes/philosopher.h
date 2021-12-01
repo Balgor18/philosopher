@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:44:15 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/12/01 17:24:18 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/12/01 23:46:50 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,23 +104,21 @@ struct s_check
 	pthread_mutex_t	check_finish;
 };
 
-// https://github.com/Sheschire/Philosophers.git
-// https://github.com/Alexdelia/42-Philosophers.git
-
 /*
 **----------------------------------
 **--------------Verif---------------
 **----------------------------------
 */
-int			verif_arg(int argc, char **argv);
+int			parse_verif_arg(int argc, char **argv);
 
 /*
 **----------------------------------
 **--------------Philo---------------
 **----------------------------------
 */
-void		init_philo(t_check *check);
-void		init_check(t_check *c, char **argv);
+int			init_struct_check(t_check *c, char **argv);
+int			init_struct_philo(t_check *check);
+
 /*
 **----------------------------------
 **---------------Time---------------
@@ -136,7 +134,7 @@ void		ft_usleep(unsigned int ms_time);
 void		start(t_check *check);
 void		*routine(void *thread_philo);
 void		*watcher(void *thread_philo);
-void		eat_sleep_think(t_check *c, t_philo *philo);
+void		do_task(t_check *c, t_philo *philo);
 void		print(t_check *c, int nb, char *s);
 void		modif_eat(t_check *c, t_philo *philo);
 
@@ -145,9 +143,8 @@ void		modif_eat(t_check *c, t_philo *philo);
 **---------------End----------------
 **----------------------------------
 */
-void		end_simulation(t_check *c);
-int			check_end_monitor(t_check *c, t_philo *philo);
-int			check_end_philo(t_check *c);
+void		stop(t_check *c);
+int			is_philo_end(t_check *c);
 
 /*
 **----------------------------------
@@ -157,7 +154,7 @@ int			check_end_philo(t_check *c);
 
 // Fct print Error\n and the message
 // Return False = 0
-void		error_msg(char *s);
+int			error_msg(char *s);
 
 /*
 **----------------------------------

@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/29 15:12:07 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/12/01 17:22:35 by fcatinau         ###   ########.fr       */
+/*   Created: 2021/11/20 15:12:07 by fcatinau          #+#    #+#             */
+/*   Updated: 2021/12/01 23:39:43 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-int	verif_arg(int argc, char **argv)
+int	parse_verif_arg(int argc, char **argv)
 {
 	int	i;
 	int	j;
