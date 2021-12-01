@@ -20,6 +20,8 @@ SRCS =	error.c\
 		init.c\
 		main.c\
 		simulation.c\
+		simulation2.c\
+		time.c\
 		utils.c\
 		verif.c
 

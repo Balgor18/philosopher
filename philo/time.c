@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   verif.c                                            :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/29 15:12:07 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/12/01 17:22:35 by fcatinau         ###   ########.fr       */
+/*   Created: 2021/12/01 14:12:09 by fcatinau          #+#    #+#             */
+/*   Updated: 2021/12/01 17:31:24 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-int	verif_arg(int argc, char **argv)
+t_time	get_time(void)
 {
-	int	i;
-	int	j;
+	struct timeval	t;
+	t_time			time;
 
-	i = 0;
-	if (argc < 5 || argc > 6)
-		return (0);
-	while (argv[++i])
-	{
-		j = -1;
-		while (argv[i][++j])
-			if (!ft_isdigit(argv[i][j]))
-				return (FALSE);
-	}
-	return (SUCCESS);
+	time = gettimeofday(&t, NULL);
+	time = t.tv_sec * 1000 + t.tv_usec / 1000;
+	return (time);
 }

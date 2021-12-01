@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:44:15 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/30 17:42:20 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/12/01 17:24:18 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,41 +66,36 @@
 # define SUCCESS 1
 # define FAILURE 0
 
-typedef enum e_param
-{
-	NB_PHILO = 0,
-	TIME_TO_DIE,
-	TIME_TO_SLEEP,
-	TIME_TO_EAT,
-	MAX_EAT_COUNT,
-	PARAM_MAX,
-}				t_param;
-
 typedef pthread_mutex_t			t_fork;
 
-typedef unsigned long long int	t_time;
+typedef unsigned int			t_time;
 
 typedef struct s_check			t_check;
 
 typedef struct s_philo
 {
-	int					nb;// need
+	int					nb;
 	int					nb_eat;
 	int					fork_left;
 	int					fork_right;
-	pthread_t			thread;// thread du philo
+	time_t				time_start;
+	t_time				last_eat;
+	pthread_t			thread;
 	pthread_t			watcher;
-	t_time				last_eat;// last time_t philo eat
 	pthread_mutex_t		lock_eat;
 	t_check				*check;
 }				t_philo;
 
 struct s_check
 {
-	long			*param;
+	int				nb_philo;
+	int				die_time;
+	int				eat_time;
+	int				sleep_time;
+	int				need_nb_eat;
 	int				nb_philo_done_eat;
 	int				everyone_alive;
-	time_t				time_start;
+	time_t			tstart;
 	t_philo			*philos;
 	pthread_mutex_t	get_time;
 	pthread_mutex_t	check_nb_meal;
@@ -111,7 +106,6 @@ struct s_check
 
 // https://github.com/Sheschire/Philosophers.git
 // https://github.com/Alexdelia/42-Philosophers.git
-// https://www.youtube.com/watch?v=IKG1P4rgm54&list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2&index=3
 
 /*
 **----------------------------------
@@ -125,8 +119,8 @@ int			verif_arg(int argc, char **argv);
 **--------------Philo---------------
 **----------------------------------
 */
-void		init_philo(t_check *check, long *param);
-void		init_check(t_check *d, long *param, char **argv);
+void		init_philo(t_check *check);
+void		init_check(t_check *c, char **argv);
 /*
 **----------------------------------
 **---------------Time---------------
