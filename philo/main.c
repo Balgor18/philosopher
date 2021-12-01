@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 15:45:08 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/30 16:59:55 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/30 23:00:30 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	init_philo(t_check *check, long *param)
 		check->philos[nb].fork_left = (nb + 1) % check->param[NB_PHILO];
 		check->philos[nb].fork_right = nb;
 		check->philos[nb].check = check;
+		check->philos[nb].last_eat = check->time_start;
 		if (pthread_mutex_init(&check->forks[nb], NULL))
 		{
 			error_msg("mutex_init");

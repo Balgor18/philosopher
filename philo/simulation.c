@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 18:17:49 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/30 18:58:35 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/12/01 01:17:16 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 t_time	get_time(void)
 {
-	struct timeval	s_time;
+	struct timeval	t;
 	t_time	time;
 
-	time = gettimeofday(&s_time, NULL);
-	time = s_time.tv_sec * 1000 \
-	+ s_time.tv_usec / 1000;
+	time = gettimeofday(&t, NULL);
+	time = t.tv_sec * 1000 + t.tv_usec / 1000;
 	return (time);
 }
 
@@ -70,6 +69,7 @@ int	check_end_monitor(t_check *c, t_philo *philo)
 	pthread_mutex_lock(&philo->lock_eat);
 	last_eat = philo->last_eat;
 	pthread_mutex_unlock(&philo->lock_eat);
+	// printf("%llu > %llu\n", get_time() - last_eat, (unsigned long long)c->param[TIME_TO_DIE]);
 	if (get_time() - last_eat > (unsigned long long)c->param[TIME_TO_DIE])
 	{
 		print(c, philo->nb, "died");
@@ -109,16 +109,32 @@ void	end_simulation(t_check *c)
 
 void	print(t_check *c, int nb, char *s)
 {
+	time_t	time;
+
 	pthread_mutex_lock(&c->check_finish);
 	pthread_mutex_lock(&c->check_nb_meal);
 	if (c->everyone_alive && c->nb_philo_done_eat != c->param[NB_PHILO])
 	{
 		pthread_mutex_lock(&c->is_print);
-		printf("%llu %d %s\n", get_time() - c->time_start, nb + 1, s);
+		time = get_time() - c->time_start;
+		printf("%ld %d %s\n", time, nb + 1, s);
 		pthread_mutex_unlock(&c->is_print);
 	}
 	pthread_mutex_unlock(&c->check_nb_meal);
 	pthread_mutex_unlock(&c->check_finish);
+}
+
+void	*watcher(void *thread_philo)
+{
+	t_philo			*philo;
+	t_check			*c;
+
+	philo = (t_philo *)thread_philo;
+	c = philo->check;
+	while (1)
+		if (!check_end_monitor(c, philo))
+			return (NULL);
+	return (NULL);
 }
 
 void	eat_sleep_think(t_check *c, t_philo *philo)
@@ -138,19 +154,6 @@ void	eat_sleep_think(t_check *c, t_philo *philo)
 	print(c, philo->nb, "is sleeping");
 	ft_usleep(c->param[TIME_TO_SLEEP]);
 	print(c, philo->nb, "is thinking");
-}
-
-void	*watcher(void *thread_philo)
-{
-	t_philo			*philo;
-	t_check			*c;
-
-	philo = (t_philo *)thread_philo;
-	c = philo->check;
-	while (1)
-		if (!check_end_monitor(c, philo))
-			return (NULL);
-	return (NULL);
 }
 
 void	*routine(void *thread_philo)
@@ -187,6 +190,6 @@ void	start(t_check *check)
 			ft_usleep(5);
 		if (pthread_create(&check->philos[nb].thread, NULL, \
 		&routine, (void *)&(check->philos[nb])))
-			error_msg("Failed to create a thread. (Philos)");
+			error_msg("Creation\n");
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 15:26:47 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/30 17:38:55 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/11/30 22:56:32 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	init_check(t_check *d, long *param, char **argv)
 	param[TIME_TO_EAT] = ft_atoi(argv[3]);
 	param[TIME_TO_SLEEP] = ft_atoi(argv[4]);
 	param[MAX_EAT_COUNT] = -1;
-	// d->g_nb_meal = 0;
+	d->nb_philo_done_eat = 0;
 	d->everyone_alive = 1;
 	if (argv[5])
 		param[MAX_EAT_COUNT] = ft_atoi(argv[5]);
