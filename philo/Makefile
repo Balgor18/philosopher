@@ -25,16 +25,6 @@ SRCS =	error.c\
 		utils.c\
 		verif.c
 
-# SRCS =	error.c\
-# 		ft_atoi.c\
-# 		ft_put.c\
-# 		get_time.c\
-# 		main.c\
-# 		philo.c\
-# 		print.c\
-# 		routine.c\
-# 		verif_parse.c
-
 DEPS = $(SRCS:%.c=DEPS/%.d)
 
 ADD = -lpthread

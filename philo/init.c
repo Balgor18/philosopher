@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 15:26:47 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/12/01 23:55:34 by fcatinau         ###   ########.fr       */
+/*   Updated: 2021/12/02 22:07:59 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,13 @@ static int	prepare_forks_and_philo(t_check *c)
 {
 	c->philos = (t_philo *)malloc(sizeof(t_philo) * c->nb_philo);
 	if (!c->philos)
-	{
-		error_msg("Malloc");
-		return (0);
-	}
+		return (error_msg("Malloc"));
 	c->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * c->nb_philo);
 	if (!c->forks)
 	{
 		if (c->philos)
 			free(c->philos);
-		error_msg("Malloc");
-		return (0);
+		return (error_msg("Malloc"));
 	}
 	return (1);
 }
@@ -35,16 +31,10 @@ int	init_struct_check(t_check *c, char **argv)
 {
 	c->nb_philo = ft_atoi(argv[1]);
 	if (c->nb_philo > 200 || c->nb_philo == 0)
-	{
-		error_msg("numb Philosophers\n");
-		return (0);
-	}
+		return (error_msg("numb Philosophers\n"));
 	c->die_time = ft_atoi(argv[2]);
 	if (c->die_time == 0)
-	{
-		error_msg("Time of death\n");
-		return (0);
-	}
+		return (error_msg("Time of death\n"));
 	c->eat_time = ft_atoi(argv[3]);
 	c->sleep_time = ft_atoi(argv[4]);
 	c->need_nb_eat = -1;
@@ -52,6 +42,8 @@ int	init_struct_check(t_check *c, char **argv)
 	c->everyone_alive = 1;
 	if (argv[5])
 		c->need_nb_eat = ft_atoi(argv[5]);
+	if (c->need_nb_eat == 0)
+		return (error_msg("Number of eat\n"));
 	c->tstart = get_time();
 	return (prepare_forks_and_philo(c));
 }
@@ -81,15 +73,9 @@ int	init_struct_philo(t_check *check)
 		check->philos[nb].check = check;
 		check->philos[nb].last_eat = check->tstart;
 		if (pthread_mutex_init(&check->forks[nb], NULL))
-		{
-			error_msg("mutex_init");
-			return (0);
-		}
+			return (error_msg("mutex_init"));
 		if (pthread_mutex_init(&check->philos[nb].lock_eat, NULL))
-		{
-			error_msg("mutex_init");
-			return (0);
-		}
+			return (error_msg("mutex_init"));
 	}
 	return (init_thread(check));
 }
